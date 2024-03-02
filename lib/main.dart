@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ecs/screens/login.dart'; // Import the Login Screen widget
+import 'package:ecs/screens/register.dart'; // Import the Registration Screen widget
+import 'package:ecs/screens/home.dart';
+import 'package:ecs/screens/profile.dart';
+import 'package:ecs/screens/attendance.dart';
+import 'package:ecs/screens/leave.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,27 +17,74 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        title: 'ECS App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+
+        //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: HomeScreen(), // Set the Login Screen as the home screen
+        routes: {
+          '/login': (context) => LoginScreen(), // Route for the Login Screen
+          '/registration': (context) =>
+              RegistrationScreen(), // Route for the Registration Screen
+          '/home': (context) => HomeScreen(),
+          '/attendance': (context) => AttendanceScreen(),
+          '/leave': (context) => LeaveManagementScreen(),
+          '/profile': (context) => ProfileScreen(),
+        });
+  }
+}
+
+class NavigationMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Navigation Menu Example'),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                // Navigate to the home screen
+                Navigator.pop(context); // Close the drawer
+                // Implement navigation logic here
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                // Navigate to the profile screen
+                Navigator.pop(context); // Close the drawer
+                // Implement navigation logic here
+              },
+            ),
+            // Add more ListTiles for other menu items
+          ],
+        ),
+      ),
+      body: Center(
+        child: Text('Main Content'),
+      ),
     );
   }
 }
